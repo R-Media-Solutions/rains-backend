@@ -1,12 +1,26 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"rains-backend/controllers"
 	"rains-backend/database"
 	"rains-backend/middlewares"
 
 	"github.com/gin-gonic/gin"
+
+	_ "github.com/go-sql-driver/mysql"
 )
+
+const (
+	HOST     = "localhost"
+	PORT     = 3306
+	USER     = "rains_admin"
+	PASSWORD = "rainsadmin123"
+	DBNAME   = "rains"
+)
+
+var DB *sql.DB
 
 func main() {
 	dbConnect()
@@ -16,7 +30,16 @@ func main() {
 }
 
 func dbConnect() {
-	database.Connect("rainsadmin:rainsadmin123@tcp(localhost:3306)/rains?parseTime=true")
+	connString := fmt.Sprintf(
+		"%s:%s@tcp(%s:%d)/%s",
+		USER, PASSWORD, HOST, PORT, DBNAME,
+	)
+	// DB, err := sql.Open("mysql", connString)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer DB.Close()
+	database.Connect(connString)
 	database.Migrate()
 }
 
