@@ -31,7 +31,7 @@ func main() {
 
 func dbConnect() {
 	connString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s",
+		"%s:%s@tcp(%s:%d)/%s?parseTime=true",
 		USER, PASSWORD, HOST, PORT, DBNAME,
 	)
 	// DB, err := sql.Open("mysql", connString)
