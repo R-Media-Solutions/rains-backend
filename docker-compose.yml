@@ -37,14 +37,17 @@ services:
   ### DB SERVICE
   ### ===================
   db:
+    build: 
+      context: .
+      dockerfile: docker/db/Dockerfile
     image: mysql:5.7
     restart: always
     container_name: rains_db
     environment:
-        - MYSQL_DATABASE='rains'
-        - MYSQL_USER='rains_admin'
-        - MYSQL_PASSWORD='rainsadmin123'
-        - MYSQL_ROOT_PASSWORD='rainsadmin123'
+        MYSQL_DATABASE: 'rains'
+        MYSQL_ROOT_PASSWORD: 'rainsadmin123'
+        MYSQL_USER: 'rains_admin'
+        MYSQL_PASSWORD: 'rainsadmin123'
     volumes:
       - my-db:/var/lib/mysql
     ports:
